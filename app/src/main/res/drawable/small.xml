@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:dither="true"
+    android:shape="oval"
+    >
+    <!--
+    Dithering, em português,
+     no contexto de computação,
+      significa matização.
+       É uma técnica óptica em que se intercalam pixels de duas cores diferentes
+        entre duas áreas adjacentes,
+     a fim de ali se criar
+     uma tonalidade variante dos tons dessas áreas adjacentes,
+      assim fazendo um degradê entre elas.
+
+    -->
+    <size
+        android:height="10dp"
+        android:width="10dp"
+        />
+    <solid
+        android:color="#FF666666"
+        />
+
+</shape>
