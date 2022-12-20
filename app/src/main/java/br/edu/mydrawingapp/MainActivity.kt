@@ -56,17 +56,14 @@ class MainActivity : AppCompatActivity() {
         val mediumBtn = brushDialog.findViewById<ImageButton>(R.id.ib_medium_brush)
         val largeBtn = brushDialog.findViewById<ImageButton>(R.id.ib_large_brush)
         smallBtn.setOnClickListener{
-            //            TODO: Put the sizes in Enum Class
             drawingView.setSizeForBrush(BrushSize.SMALL.value)
             brushDialog.dismiss()
         }
         mediumBtn.setOnClickListener{
-            //            TODO: Put the sizes in Enum Class
             drawingView.setSizeForBrush(BrushSize.MEDIUM.value)
             brushDialog.dismiss()
         }
         largeBtn.setOnClickListener{
-//            TODO: Put the sizes in Enum Class
             drawingView.setSizeForBrush(BrushSize.LARGE.value)
             brushDialog.dismiss()
         }
