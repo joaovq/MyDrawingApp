@@ -58,11 +58,15 @@ class DrawingView(
         mDrawPaint?.let {
           with(it){
               this@with.color = color
+//              Geometria da linha vai ser no estilo de linha
               style = Paint.Style.STROKE
+//              Trata o caminho da linha
               strokeJoin = Paint.Join.ROUND
-              strokeCap
+//              Arredonda o final da linha
+              strokeCap= Paint.Cap.ROUND
           }
         }
+//        Paint.DITHER_FLAG habilita o dither
         mCanvasPaint = Paint(Paint.DITHER_FLAG)
 //        mBrushSize = 20F
     }
@@ -94,17 +98,24 @@ class DrawingView(
                     it.color = this@with.color
                 }
             }
+//            Cria um canvas
             canvas.drawPath(mDrawPath!!, mDrawPaint!!)
         }
     }
 
     fun setSizeForBrush(newSize: Float){
+//        Aplica as dimensões do app, para as dimensões do celular
         mBrushSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
             newSize,
              resources.displayMetrics
         )
-
+//      atribui o tamanho da linha
         mDrawPaint!!.strokeWidth = mBrushSize
+    }
+
+    fun setColor(newColor: String){
+        color = Color.parseColor(newColor)
+        mDrawPaint!!.color = color
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -115,6 +126,8 @@ class DrawingView(
             MotionEvent.ACTION_DOWN->{
                 mDrawPath!!.color = color
                 mDrawPath!!.brushThickness = mBrushSize
+//              .reset() :  Clear any lines and curves from the path, making it empty.
+//                This does NOT change the fill-type setting.
                 mDrawPath!!.reset()
 //                Instead of asserting, we can do the null check
                 if (touchX != null && touchY!=null){
@@ -122,13 +135,17 @@ class DrawingView(
                 }
             }
             MotionEvent.ACTION_MOVE->{
+//                Aciona na movimentação do dedo na tela
                 if (touchY != null) {
                     if (touchX != null) {
+//                        Faz uma linha de touchX a touchY
                         mDrawPath!!.lineTo(touchX, touchY)
                     }
                 }
             }
             MotionEvent.ACTION_UP->{
+//                Aciona quando existe a retirada do dedo da tela
+//                Adiciona o caminho feito no action move
                 mPaths.add(mDrawPath!!)
                 mDrawPath = CustomPath(color, mBrushSize)
             }
