@@ -8,15 +8,17 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
 import androidx.core.view.get
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     private lateinit var drawingView:DrawingView
     private lateinit var btnBrush:ImageButton
     private lateinit var mImageButtonCurrentPaint:ImageButton
+    private lateinit var linearLayoutPaintColors:LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +26,7 @@ class MainActivity : AppCompatActivity() {
         drawingView = findViewById(R.id.drawing_view)
         btnBrush= findViewById(R.id.ib_brush)
 
-        val linearLayoutPaintColors = findViewById<LinearLayout>(R.id.ll_paint_colors)
-
+        linearLayoutPaintColors = findViewById(R.id.ll_paint_colors)
 
         mImageButtonCurrentPaint = linearLayoutPaintColors[0] as ImageButton
         mImageButtonCurrentPaint.setImageDrawable(
@@ -35,14 +36,9 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        linearLayoutPaintColors.forEach {
-                view ->
-            val imageButton = view as ImageButton
-            imageButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.pallet_normal))
 
-        }
-
-        drawingView.setSizeForBrush(20F)
+//        Standard Brush size
+        drawingView.setSizeForBrush(BrushSize.MEDIUM.value)
         btnBrush.setOnClickListener{
             showBrushSizeChooserDialog()
         }
@@ -70,5 +66,26 @@ class MainActivity : AppCompatActivity() {
         brushDialog.show()
     }
 
+    fun paintClicked(view: View){
+        var imageButton:ImageButton? = null
+        val colorTag: String?
+        if(view !== mImageButtonCurrentPaint){
+            imageButton = view as ImageButton
+            colorTag = imageButton.tag.toString()
+        }else{
+            colorTag = view.tag.toString()
+        }
+        drawingView.setColor(colorTag)
+        imageButton?.setImageDrawable(
+            ContextCompat.getDrawable(
+                this,
+                R.drawable.pallet_pressed
+            )
+        )
+        mImageButtonCurrentPaint.setImageDrawable(
+            ContextCompat.getDrawable(this, R.drawable.pallet_normal)
+        )
+        mImageButtonCurrentPaint = view
+    }
 
 }
