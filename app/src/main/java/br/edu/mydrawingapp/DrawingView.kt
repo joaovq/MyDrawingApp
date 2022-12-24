@@ -44,11 +44,27 @@ class DrawingView(
     private var mCanvarBitmap: Bitmap? = null
     private var canvas: Canvas? = null
     private val mPaths = ArrayList<CustomPath>()
+    private val mUndoPaths = ArrayList<CustomPath>()
 
     init {
         setUpDrawing()
     }
 
+//    Click no botão undo
+    fun onClickUndo(){
+//        Verificando se os caminho for maior que 0
+        if (mPaths.size>0){
+//            Adiciona ao Array de mUndoPaths o elemento removido do mPaths
+            mUndoPaths.add(mPaths.removeAt(mPaths.size-1))
+            /**Se não utilizassemos o método invalidate(), precisariamos utilizar o método
+            *onDraw novamente
+            *
+            *Este método inválida a view e onDraw será chamado posteriormente, se a view for
+            vísivel*/
+            invalidate()
+//            Ou seja, precisariamos desenhar as alterações novamente
+        }
+    }
 
     private fun setUpDrawing() {
         mDrawPaint = Paint()

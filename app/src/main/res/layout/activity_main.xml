@@ -163,6 +163,15 @@
             android:contentDescription="Btn" />
 
         <ImageButton
+            android:id="@+id/ib_undo"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_margin="5dp"
+            android:src="@android:drawable/ic_menu_revert"
+            android:scaleType="fitXY"
+            android:contentDescription="Btn" />
+
+        <ImageButton
             android:id="@+id/ib_brush"
             android:layout_height="50dp"
             android:layout_width="50dp"

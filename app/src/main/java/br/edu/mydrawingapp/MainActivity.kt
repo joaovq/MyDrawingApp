@@ -17,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(){
 
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity(){
     private lateinit var mImageButtonCurrentPaint:ImageButton
     private lateinit var linearLayoutPaintColors:LinearLayout
     private lateinit var btnGallery:ImageButton
+    private lateinit var btnUndo:ImageButton
 //  Com o laucher de gallery, iniciamos uma activity para o result das permissões
     private val openGalleryLaucher:ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity(){
 
         linearLayoutPaintColors = findViewById(R.id.ll_paint_colors)
         btnGallery = findViewById(R.id.ib_gallery)
+        btnUndo = findViewById(R.id.ib_undo)
 
         mImageButtonCurrentPaint = linearLayoutPaintColors[0] as ImageButton
         mImageButtonCurrentPaint.setImageDrawable(
@@ -93,6 +96,11 @@ class MainActivity : AppCompatActivity(){
         btnBrush.setOnClickListener{
             showBrushSizeChooserDialog()
         }
+
+        btnUndo.setOnClickListener{
+            drawingView.onClickUndo()
+        }
+
     }
 
     private fun requestStoragePermission() {
