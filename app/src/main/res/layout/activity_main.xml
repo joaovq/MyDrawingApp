@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    style="@style/BackgroundDraw"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 <!--Frame Layout INIT-->
@@ -160,7 +161,7 @@
             android:layout_margin="5dp"
             android:src="@android:drawable/ic_menu_gallery"
             android:scaleType="fitXY"
-            android:contentDescription="Btn" />
+            android:contentDescription="image brush" />
 
         <ImageButton
             android:id="@+id/ib_undo"
@@ -169,7 +170,7 @@
             android:layout_margin="5dp"
             android:src="@android:drawable/ic_menu_revert"
             android:scaleType="fitXY"
-            android:contentDescription="Btn" />
+            android:contentDescription="undo draw" />
 
         <ImageButton
             android:id="@+id/ib_brush"
@@ -178,7 +179,16 @@
             android:layout_margin="5dp"
             android:src="@drawable/ic_brush"
             android:scaleType="fitXY"
-            android:contentDescription="Btn" />
+            android:contentDescription="set size brush" />
+
+        <ImageButton
+            android:id="@+id/ib_save"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_margin="5dp"
+            android:src="@android:drawable/ic_menu_save"
+            android:scaleType="fitXY"
+            android:contentDescription="save in gallery" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

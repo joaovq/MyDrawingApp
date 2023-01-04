@@ -4,6 +4,9 @@ import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,7 +20,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
-import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
 
 class MainActivity : AppCompatActivity(){
 
@@ -114,6 +119,29 @@ class MainActivity : AppCompatActivity(){
         } else {
             requestPermission.launch(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE))
         }
+    }
+
+    //    Images are Bitmap and Bitmap can be storage.
+//    Pegando os Bitmaps e juntando com a imagem e salvando na galeria
+    private fun getBitmapFromView(view: View): Bitmap {
+        val resultBitmapFromView = Bitmap.createBitmap(
+            view.width,
+            view.height, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(resultBitmapFromView)
+
+        val bgDrawable = view.background
+
+        if (bgDrawable != null){
+            bgDrawable.draw(canvas)
+        }
+        else{
+            canvas.drawColor(Color.WHITE)
+        }
+
+        view.draw(canvas)
+
+        return resultBitmapFromView
     }
 
     private fun showRationaleDialog(title: String, message: String) {
