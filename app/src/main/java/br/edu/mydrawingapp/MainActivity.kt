@@ -166,14 +166,41 @@ class MainActivity : AppCompatActivity(){
                     val bytes = ByteArrayOutputStream()
                     mBitmap.compress(Bitmap.CompressFormat.PNG, 90, bytes)
 
+                    /**
+                     * Write a compressed version of the bitmap to the specified outputstream.
+                     * If this returns true, the bitmap can be reconstructed by passing a
+                     * corresponding inputstream to BitmapFactory.decodeStream(). Note: not
+                     * all Formats support all bitmap configs directly, so it is possible that
+                     * the returned bitmap from BitmapFactory could be in a different bitdepth,
+                     * and/or may have lost per-pixel alpha (e.g. JPEG only supports opaque
+                     * pixels).
+                     *
+                     * @param format   The format of the compressed image
+                     * @param quality  Hint to the compressor, 0-100. 0 meaning compress for
+                     *                 small size, 100 meaning compress for max quality. Some
+                     *                 formats, like PNG which is lossless, will ignore the
+                     *                 quality setting
+                     * @param stream   The outputstream to write the compressed data.
+                     * @return true if successfully compressed to the specified stream.
+                     */
+
 //                    instanciando um arquivo com um nome diferente de caminho para cada salvamento
 //                    Estamos utilizando o System.currentTimeMillis() para ser mais aleatório
 //                    File.separator é o separador padrão do sistema, dependente do sistema
                     val file = File(externalCacheDir?.absoluteFile.toString()
                             + File.separator + "KidsDrawingApp_"+ System.currentTimeMillis()/1000+ ".png"
                     )
-                    val outputStream = FileOutputStream(file)
-                    outputStream.write(bytes.toByteArray())
+                    // Here the Environment : Provides access to environment variables.
+                    // getExternalStorageDirectory : returns the primary shared/external storage directory.
+                    // absoluteFile : Returns the absolute form of this abstract pathname.
+                    // File.separator : The system-dependent default name-separator character.
+                    // This string contains a single character.
+
+                    val outputStream = FileOutputStream(file)// Creates a file output stream
+//                     to write to the file represented by the specified object.
+                    outputStream.write(bytes.toByteArray()) // Writes bytes from the specified byte
+//                     array to this file output stream.
+//                    Fecha o output após finalizar a ação
                     outputStream.close()
 
                     result = file.absolutePath
@@ -313,10 +340,21 @@ class MainActivity : AppCompatActivity(){
 //        Provê um caminho para as aplicações
 //        Provê uma interface para scannear a media
 //        Passamos o contexto, o caminho
+
+
+        /*MediaScannerConnection provides a way for applications to pass a
+       newly created or downloaded media file to the media scanner service.
+       The media scanner service will read metadata from the file and add
+       the file to the media content provider.
+       The MediaScannerConnectionClient provides an interface for the
+       media scanner service to return the Uri for a newly scanned file
+       to the client of the MediaScannerConnection class.*/
         MediaScannerConnection.scanFile(this, arrayOf(result), null,
             ){
 //            Atraves desse caminho, será escaneado para enviar para o lugar desejado
             path, uri->
+            // This is used for sharing the image after it has being stored in the storage.
+
             /*Um Intent no sistema operacional
             Android é um mecanismo de software
             que permite aos usuários coordenar
@@ -333,6 +371,11 @@ class MainActivity : AppCompatActivity(){
                 also optionally supplying a title.
                 If the target intent has specified*/
             startActivity(Intent.createChooser(shareIntent,"Share for friends"))
+            // Activity Action: Display an activity chooser,
+            // allowing the user to pick what they want to before proceeding.
+            // This can be used as an alternative to the standard activity picker
+            // that is displayed by the system when you try to start an activity with multiple possible matches,
+            // with these differences in behavior:
         }
 
     }
