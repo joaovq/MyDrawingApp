@@ -350,6 +350,8 @@ class MainActivity : AppCompatActivity(){
        The MediaScannerConnectionClient provides an interface for the
        media scanner service to return the Uri for a newly scanned file
        to the client of the MediaScannerConnection class.*/
+
+        /*scanFile is used to scan the file when the connection is established with MediaScanner.*/
         MediaScannerConnection.scanFile(this, arrayOf(result), null,
             ){
 //            Atraves desse caminho, será escaneado para enviar para o lugar desejado
@@ -360,11 +362,14 @@ class MainActivity : AppCompatActivity(){
             Android é um mecanismo de software
             que permite aos usuários coordenar
              funções de diferentes atividades para realizar uma tarefa.*/
+
+            // This is used for sharing the image after it has being stored in the storage
             val shareIntent = Intent()
 //          A coordenação da ação de mandar e compartilhar com alguém
             shareIntent.action = Intent.ACTION_SEND
-            shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
-            shareIntent.type = "image/png"
+            shareIntent.putExtra(Intent.EXTRA_STREAM, uri)  // A content: URI holding a stream of
+//             data associated with the Intent, used to supply the data being sent.
+            shareIntent.type = "image/png" // The MIME type of the data being handled by this intent.
 //            iniciando uma atividade de Chooser. Escolher para aonde vai mandar
 
             /*Convenience function for creating a ACTION_CHOOSER Intent.
