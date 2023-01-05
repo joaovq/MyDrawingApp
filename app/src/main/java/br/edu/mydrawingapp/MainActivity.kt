@@ -163,7 +163,8 @@ class MainActivity : AppCompatActivity(){
         withContext(Dispatchers.IO){
             mBitmap?.let {
                 try {
-                    val bytes = ByteArrayOutputStream()
+                    val bytes = ByteArrayOutputStream() // Creates a new byte array output stream.
+                    // The buffer capacity is initially 32 bytes, though its size increases if necessary.
                     mBitmap.compress(Bitmap.CompressFormat.PNG, 90, bytes)
 
                     /**
